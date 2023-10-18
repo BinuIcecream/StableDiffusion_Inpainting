@@ -42,16 +42,17 @@ css = '''
 '''
 
 with gr.Blocks(css=css) as demo:
-    with gr.Row(elem_id="prompt-container", equal_height=True):
-        prompt = gr.Textbox(placeholder = 'Prompt', elem_id="input-text", show_label=False, lines=2, scale=4)
-        btn = gr.Button("Generate", variant="primary", elem_id="button", full_width=False, min_width=20, scale=1)
-    with gr.Row(elem_id="image-container", equal_height=True):  
-        with gr.Column():
-            image = gr.Image(source='upload', tool='sketch', elem_id="image_upload", type="pil", label="Upload", height=400)
-        with gr.Column():
-            image_out = gr.Image(label="Output", elem_id="output-img", height=400)
+    with gr.Group():
+        with gr.Row(elem_id="prompt-container", equal_height=True):
+            prompt = gr.Textbox(placeholder = 'Prompt', elem_id="input-text", show_label=False, lines=2, scale=4)
+            btn = gr.Button("Generate", variant="primary", elem_id="button", full_width=False, min_width=20, scale=1)
+        with gr.Row(elem_id="image-container", equal_height=True):  
+            with gr.Column():
+                image = gr.Image(source='upload', tool='sketch', elem_id="image_upload", type="pil", label="Upload", height=400)
+            with gr.Column():
+                image_out = gr.Image(label="Output", elem_id="output-img", height=400)
 
-    btn.click(fn=predict, inputs=[image, prompt], outputs=[image_out])
+        btn.click(fn=predict, inputs=[image, prompt], outputs=[image_out])
 
 demo.queue(concurrency_count=3)
 demo.launch()
