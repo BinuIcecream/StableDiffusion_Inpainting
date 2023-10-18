@@ -16,10 +16,13 @@ from diffusers import DiffusionPipeline
 
 device = "cuda" if torch.cuda.is_available() else "cpu" 
 
-pipe = DiffusionPipeline.from_pretrained(
-    "runwayml/stable-diffusion-inpainting", 
-    torch_dtype=torch.float16
-).to(device)
+if device == "cuda":
+    pipe = DiffusionPipeline.from_pretrained(
+        "runwayml/stable-diffusion-inpainting", 
+        torch_dtype=torch.float16
+    ).to(device)
+else:
+    print("CUDA is not available.")
 
 def predict(dict, prompt=""):
     init_image = dict["image"].convert("RGB").resize((512, 512))
