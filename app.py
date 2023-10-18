@@ -46,7 +46,7 @@ with gr.Blocks(css=css) as demo:
         with gr.Column():
             image = gr.Image(source='upload', tool='sketch', elem_id="image_upload", type="pil", label="Upload", height=400)
         with gr.Column():
-            mage_out = gr.Image(label="Output", elem_id="output-img", height=400)
+            image_out = gr.Image(label="Output", elem_id="output-img", height=400)
 
     btn.click(fn=predict, inputs=[image, prompt], outputs=[image_out])
 
