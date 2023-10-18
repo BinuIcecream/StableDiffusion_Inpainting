@@ -32,9 +32,12 @@ def predict(dict, prompt=""):
 
 css = '''
     @media (min-width: 1280px) {.gradio-container{max-width: 900px !important;}}
+    .container.svelte-1f354aw>textarea.svelte-1f354aw{border-radius: 10px 0px 0px 10px;border-right: none !important;box-shadow: none !important;}
+    .form{border: none !important;box-shadow: none !important;}
     #button{max-width: 169px;max-height: 60px;border-radius: 0px 10px 10px 0px !important;}
     #mask_radio .gr-form{background:transparent; border: none;}
     #image_upload .touch-none{display: flex;}
+    #input-text {padding: 0px 0px;}
 '''
 
 with gr.Blocks(css=css) as demo:
