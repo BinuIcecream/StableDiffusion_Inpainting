@@ -31,11 +31,10 @@ def predict(dict, prompt=""):
     return output.images[0]
 
 css = '''
+    @media (min-width: 1280px) {.gradio-container{max-width: 900px !important;}}
     #button{max-width: 169px;max-height: 60px;border-radius: 0px 10px 10px 0px !important;}
-    #image_upload{min-height:400px}
-    #image_upload [data-testid="image"], #image_upload [data-testid="image"] > div{min-height: 400px}
-    #mask_radio .gr-form{background:transparent; border: none}
-    #image_upload .touch-none{display: flex}
+    #mask_radio .gr-form{background:transparent; border: none;}
+    #image_upload .touch-none{display: flex;}
 '''
 
 with gr.Blocks(css=css) as demo:
