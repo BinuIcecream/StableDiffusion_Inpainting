@@ -25,7 +25,7 @@ def predict(dict, prompt=""):
     init_image = dict["image"].convert("RGB").resize((512, 512))
     mask = dict["mask"].convert("RGB").resize((512, 512))
     output = pipe(prompt = prompt, image=init_image, mask_image=mask,guidance_scale=7.5)
-    return
+    return output.images[0]
 
 css = '''
 .container {max-width: 1150px;margin: auto;padding-top: 1.5rem}
