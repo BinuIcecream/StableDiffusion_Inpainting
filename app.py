@@ -37,6 +37,8 @@ css = '''
     #button{max-width: 169px;max-height: 67px;border-radius: 0px 10px 0px 0px !important;}
     #mask_radio .gr-form{background:transparent; border: none;}
     #image_upload .touch-none{display: flex;}
+    #image_upload {border-left: var(--input-border-width) solid var(--input-border-color) !important;border-bottom: var(--input-border-width) solid var(--input-border-color) !important;}
+    #output-img {border-right: var(--input-border-width) solid var(--input-border-color) !important;border-bottom: var(--input-border-width) solid var(--input-border-color) !important;}
     #input-text {padding: 0px 0px;}
     #prompt-container {gap: 0;}
 '''
