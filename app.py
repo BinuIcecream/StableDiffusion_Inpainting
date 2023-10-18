@@ -41,7 +41,7 @@ css = '''
 with gr.Blocks(css=css) as demo:
     with gr.Row(elem_id="prompt-container", equal_height=True):
         prompt = gr.Textbox(placeholder = 'Prompt', elem_id="input-text", show_label=False, lines=2, scale=4)
-        btn = gr.Button("Generate", variant="primary", elem_id="button", margin=False, full_width=False, min_width=20, scale=1)
+        btn = gr.Button("Generate", variant="primary", elem_id="button", full_width=False, min_width=20, scale=1)
     with gr.Row(elem_id="image-container", equal_height=True):  
         with gr.Column():
             image = gr.Image(source='upload', tool='sketch', elem_id="image_upload", type="pil", label="Upload", height=400)
