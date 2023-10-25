@@ -1,8 +1,8 @@
 ---
 title: Inpaint
-emoji: 👀
-colorFrom: pink
-colorTo: purple
+emoji: 🎨
+colorFrom: gray
+colorTo: gray
 sdk: gradio
 sdk_version: 3.50.0
 app_file: app.py
