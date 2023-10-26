@@ -1,17 +1,6 @@
 import gradio as gr
-
-from io import BytesIO
-import requests
-import PIL
 from PIL import Image
-import numpy as np
-import os
-import uuid
 import torch
-from torch import autocast
-import cv2
-from matplotlib import pyplot as plt
-from torchvision import transforms
 from diffusers import DiffusionPipeline
 
 device = "cuda" if torch.cuda.is_available() else "cpu" 
@@ -27,7 +16,7 @@ else:
 def predict(dict, prompt=""):
     init_image = dict["image"].convert("RGB").resize((512, 512))
     mask = dict["mask"].convert("RGB").resize((512, 512))
-    output = pipe(prompt = prompt, image=init_image, mask_image=mask,guidance_scale=7.5)
+    output = pipe(prompt = prompt, image=init_image, mask_image=mask, guidance_scale=7.5)
     return output.images[0]
 
 css = '''
