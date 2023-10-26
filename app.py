@@ -32,7 +32,8 @@ def predict(dict, prompt=""):
 
 css = '''
     @media (min-width: 1280px) {.gradio-container{max-width: 900px !important;}}
-    textarea.scroll-hide {border: none !important;box-sizing: initial;max-height: 20px;overflow-y: auto !important;}
+    h1{text-align: center;}
+    textarea.scroll-hide{border: none !important;box-sizing: initial;max-height: 20px;overflow-y: auto !important;}
     .container.svelte-1f354aw>textarea.svelte-1f354aw{border-radius: 10px 0px 0px 0px;border-right: none !important;box-shadow: none !important;}
 '''
 
