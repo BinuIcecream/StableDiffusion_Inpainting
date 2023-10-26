@@ -37,6 +37,7 @@ css = '''
 '''
 
 with gr.Blocks(css=css) as demo:
+    gr.Markdown(''' # Stable Diffusion Inpainting''')
     with gr.Row(elem_id="prompt-container", equal_height=True):
         prompt = gr.Textbox(placeholder = 'Prompt', elem_id="input-text", show_label=False, lines=2, scale=4)
         btn = gr.Button("Generate", variant="primary", elem_id="button", min_width=20, scale=1)
