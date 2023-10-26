@@ -1,11 +1,5 @@
---extra-index-url https://download.pytorch.org/whl/cu113 
-torch
-torchvision
-git+https://github.com/huggingface/diffusers.git
-transformers
-ftfy
-numpy
-matplotlib
-uuid
-opencv-python
-git+https://github.com/openai/CLIP.git
+gradio==3.50.2
+diffusers==0.21.4
+transformers==4.34.1
+torch==2.1.0
+Pillow==10.1.0
