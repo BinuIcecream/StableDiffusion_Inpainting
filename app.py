@@ -14,10 +14,9 @@ pipe = StableDiffusionInpaintPipeline.from_pretrained(
 def predict(prompt, pil_image):
     # Extract and resize the image and mask from the Gradio sketch tool
     image = pil_image["image"].convert("RGB").resize((512, 512))
-    mask_image = pil_image["mask"].convert("RGB").resize((512, 512))
 
     # Perform inpainting
-    result = pipe(prompt=prompt, image=image, mask_image=mask_image).images[0]
+    result = pipe(prompt=prompt, image=image).images[0]
     return result
 
 # Gradio UI
