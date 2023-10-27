@@ -22,22 +22,22 @@ def predict(dict, prompt=""):
 css = '''
     @media (min-width: 1280px) {.gradio-container{max-width: 900px !important;}}
     h1{text-align: center;}
-    textarea.scroll-hide{border: none !important;box-sizing: initial;max-height: 20px;overflow-y: auto !important;font-size: 24px!important;}
+    textarea.scroll-hide{border: none !important;box-sizing: initial;overflow-y: auto !important;}
     .container.svelte-1f354aw>textarea.svelte-1f354aw{border-radius: 10px 0px 0px 0px;border-right: none !important;box-shadow: none !important;}
 '''
 
 with gr.Blocks(css=css) as demo:
     gr.Markdown(''' # Stable Diffusion Inpainting''')
     with gr.Row(elem_id="prompt-container", equal_height=True):
-        prompt = gr.Textbox(placeholder = 'Prompt', elem_id="input-text", show_label=False, lines=2, scale=4)
-        btn = gr.Button("Generate", variant="primary", elem_id="button", min_width=20, scale=1)
+        prompt = gr.Textbox(placeholder = 'Prompt', elem_id="input-text", show_label=False, lines=1, scale=4)
+        submit_button = gr.Button("Generate", variant="primary", elem_id="button", min_width=20, scale=1)
     with gr.Row(elem_id="image-container", equal_height=True):  
         with gr.Column():
             image = gr.Image(source='upload', tool='sketch', elem_id="image_upload", type="pil", label="Upload", height=400)
         with gr.Column():
             image_out = gr.Image(label="Output", elem_id="output-img", height=400)
     
-    btn.click(fn=predict, inputs=[image, prompt], outputs=[image_out])
+    submit_button.click(fn=predict, inputs=[image, prompt], outputs=[image_out])
 
 demo.queue(concurrency_count=3)
 demo.launch()
