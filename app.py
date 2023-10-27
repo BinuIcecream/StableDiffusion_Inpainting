@@ -13,7 +13,7 @@ if device == "cuda":
 else:
     print("CUDA is not available.")
 
-def predict(dict, prompt=""):
+def predict(dict, prompt):
     init_image = dict["image"].convert("RGB").resize((512, 512))
     output = pipe(prompt = prompt, image=init_image)
     return output.images[0]
