@@ -22,7 +22,7 @@ def predict(dict, prompt=""):
 css = '''
     @media (min-width: 1280px) {.gradio-container{max-width: 900px !important;}}
     h1{text-align: center;}
-    textarea.scroll-hide{border: none !important;box-sizing: initial;overflow-y: auto !important;}
+    textarea.scroll-hide{border: none !important;box-sizing: initial;overflow-y: auto !important;height: 8px !important;line-height: 0.8 !important;}
     .container.svelte-1f354aw>textarea.svelte-1f354aw{border-radius: 10px 0px 0px 0px;border-right: none !important;box-shadow: none !important;}
 '''
 
