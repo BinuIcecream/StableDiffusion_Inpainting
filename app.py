@@ -47,7 +47,7 @@ with gr.Blocks(css=css) as demo:
         with gr.Accordion("Additional Inputs", elem_id="accordion-container", open=False) as accordion_container:
             negative_prompt = gr.Textbox(label="Negative Prompt", placeholder="Write your negative prompt here...", elem_id="negative-prompt", show_label=True, lines=1)
     
-    submit_button.click(fn=predict, inputs=[prompt, init_image], outputs=output_image)
+    submit_button.click(fn=predict, inputs=[prompt, negative_prompt, input_image], outputs=output_image)
 
 demo.queue(concurrency_count=3)
 demo.launch()
