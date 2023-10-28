@@ -1,9 +1,10 @@
-torchvision
-diffusers
+--extra-index-url https://download.pytorch.org/whl/cu118
+torch
+git+https://github.com/huggingface/diffusers.git
 transformers
 accelerate
 ftfy
-scipy
-imageio
-modin[all]
-invisible_watermark
+numpy
+matplotlib
+uuid
+opencv-python
