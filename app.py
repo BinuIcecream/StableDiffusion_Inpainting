@@ -68,12 +68,15 @@ with gr.Blocks(css=css) as demo:
             output_image = gr.Image(label="Output", elem_id="output_container")
     with gr.Row(elem_id="additional-container") as additional_container: 
         with gr.Accordion("Additional Inputs", elem_id="accordion-container", open=False) as accordion_container:
-            negative_prompt = gr.Textbox(label="Negative Prompt", placeholder="Write your negative prompt here...", elem_id="negative-prompt", show_label=True, lines=1)
-            guidance_scale = gr.Number(value=7.5, minimum=1.0, maximum=20.0, step=0.1, label="guidance_scale")
-            steps = gr.Number(value=20, minimum=10, maximum=30, step=1, label="steps")
-            strength = gr.Number(value=0.99, minimum=0.01, maximum=1.0, step=0.01, label="strength")
-            schedulers = ["DEISMultistepScheduler", "HeunDiscreteScheduler", "EulerDiscreteScheduler", "DPMSolverMultistepScheduler", "DPMSolverMultistepScheduler-Karras", "DPMSolverMultistepScheduler-Karras-SDE"]
-            scheduler = gr.Dropdown(label="Schedulers", choices=schedulers, value="EulerDiscreteScheduler")
+            with gr.Row():
+                negative_prompt = gr.Textbox(label="Negative Prompt", placeholder="Write your negative prompt here...", elem_id="negative-prompt", show_label=True, lines=1)
+                scheduler = gr.Dropdown(label="Schedulers", choices=schedulers, value="EulerDiscreteScheduler")
+            with gr.Row():
+                guidance_scale = gr.Slider(value=7.5, minimum=1.0, maximum=20.0, step=0.1, label="guidance_scale")
+                steps = gr.Slider(value=20, minimum=10, maximum=30, step=1, label="steps")
+            with gr.Row():    
+                strength = gr.Slider(value=0.99, minimum=0.01, maximum=1.0, step=0.01, label="strength")    
+                schedulers = ["DEISMultistepScheduler", "HeunDiscreteScheduler", "EulerDiscreteScheduler", "DPMSolverMultistepScheduler", "DPMSolverMultistepScheduler-Karras", "DPMSolverMultistepScheduler-Karras-SDE"]
     
     submit_button.click(fn=predict, inputs=[image, prompt, negative_prompt, guidance_scale, steps, strength, scheduler], outputs=output_image)
     prompt.submit(fn=predict, inputs=[image, prompt, negative_prompt, guidance_scale, steps, strength, scheduler], outputs=output_image)
