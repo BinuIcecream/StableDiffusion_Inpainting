@@ -11,7 +11,8 @@ if device != "cpu":
 else:
     print("Your Space is running on CPU hardware.")
     print("CUDA is currently unavailable as this Space is running on CPU hardware. To enable GPU acceleration, you can upgrade your Space by clicking the 'Settings' button located in the top navigation bar of the Space.")
-    
+
+
 def read_content(file_path: str) -> str:
     """read the content of target file
     """
@@ -21,7 +22,7 @@ def read_content(file_path: str) -> str:
     return content
 
 def predict(dict, prompt="", negative_prompt="", guidance_scale=7.5, steps=20, strength=1.0, scheduler="EulerDiscreteScheduler"):
-    if device =! "cuda":
+    if device != "cuda":
         print("CUDA is currently unavailable as this Space is running on CPU hardware. To enable GPU acceleration, you can upgrade your Space by clicking the 'Settings' button located in the top navigation bar of the Space.")
     else:
         if negative_prompt == "":
