@@ -71,12 +71,12 @@ with gr.Blocks(css=css) as demo:
             with gr.Row():
                 negative_prompt = gr.Textbox(label="Negative Prompt", placeholder="Write your negative prompt here...", elem_id="negative-prompt", show_label=True, lines=1)
             with gr.Row():
-                guidance_scale = gr.Slider(value=7.5, minimum=1.0, maximum=20.0, step=0.1, label="guidance_scale")
-                steps = gr.Slider(value=20, minimum=10, maximum=30, step=1, label="steps")
+                guidance_scale = gr.Slider(label="guidance_scale", value=7.5, minimum=0, maximum=20, step=0.1)
+                steps = gr.Slider(label="Steps", value=20, minimum=1, maximum=100, step=1)
             with gr.Row():    
-                strength = gr.Slider(value=0.99, minimum=0.01, maximum=1.0, step=0.01, label="strength")    
+                strength = gr.Slider(label="Strength", value=0.99, minimum=0.1, maximum=1.0, step=0.01)    
                 schedulers = ["DEISMultistepScheduler", "HeunDiscreteScheduler", "EulerDiscreteScheduler", "DPMSolverMultistepScheduler", "DPMSolverMultistepScheduler-Karras", "DPMSolverMultistepScheduler-Karras-SDE"]
-                scheduler = gr.Dropdown(label="Schedulers", choices=schedulers, value="EulerDiscreteScheduler")
+                scheduler = gr.Dropdown(label="Scheduler", choices=schedulers, value="EulerDiscreteScheduler")
     
     submit_button.click(fn=predict, inputs=[image, prompt, negative_prompt, guidance_scale, steps, strength, scheduler], outputs=output_image)
     prompt.submit(fn=predict, inputs=[image, prompt, negative_prompt, guidance_scale, steps, strength, scheduler], outputs=output_image)
