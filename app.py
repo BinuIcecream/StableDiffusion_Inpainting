@@ -1,23 +1,29 @@
+from diffusers import StableDiffusionXLInpaintPipeline
 import gradio as gr
-from diffusers import StableDiffusionInpaintPipeline
-import torch
+import numpy as np
+import imageio
 from PIL import Image
+import torch
+import modin.pandas as pd
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
+pipe = StableDiffusionXLInpaintPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", safety_checker=None)
+pipe = pipe.to(device)
 
-# Initialize the Stable Diffusion Inpainting pipeline
-pipe = StableDiffusionInpaintPipeline.from_pretrained(
-    "runwayml/stable-diffusion-inpainting", torch_dtype=torch.float16
-).to(device)
+def resize(value,img):
+    img = Image.open(img)
+    img = img.resize((value,value))
+    return img
 
-# Prediction function
-def predict(prompt, pil_image):
-    # Extract and resize the image and mask from the Gradio sketch tool
-    image = pil_image["image"].convert("RGB").resize((512, 512))
-
-    # Perform inpainting
-    result = pipe(prompt=prompt, image=image).images[0]
-    return result
+def predict(input_image, prompt, negative_prompt):
+    imageio.imwrite("data.png", input_image["image"])
+    imageio.imwrite("data_mask.png", input_image["mask"])
+    src = resize(768, "data.png")
+    src.save("src.png")
+    mask = resize(768, "data_mask.png")  
+    mask.save("mask.png")
+    image = pipe(prompt=prompt, negative_prompt=negative_prompt, image=src, mask_image=mask, num_inference_steps=20).images[0]
+    return image
 
 # Gradio UI
 css = '''
@@ -28,15 +34,18 @@ css = '''
 '''
 
 with gr.Blocks(css=css) as demo:
-    gr.Markdown(''' # Stable Diffusion Inpainting''')
-    with gr.Row(elem_id="prompt-container", equal_height=True):
-        prompt = gr.Textbox(placeholder='Prompt', elem_id="input-text", show_label=False, lines=1, scale=4)
+    title = gr.Markdown(''' # Stable Diffusion XL Inpainting''')
+    with gr.Row(elem_id="prompt-row", equal_height=True) as promot_row:
+        prompt = gr.Textbox(label="Prompt", placeholder="Write your desired prompt here...", elem_id="prompt", show_label=False, lines=1, scale=4)
         submit_button = gr.Button("Generate", variant="primary", elem_id="button", min_width=20, scale=1)
-    with gr.Row(elem_id="image-container", equal_height=True):  
-        with gr.Column():
-            init_image = gr.Image(source='upload', tool='sketch', elem_id="image_upload", type="pil", label="Upload", height=400)
-        with gr.Column():
-            output_image = gr.Image(label="Output", elem_id="output-img", height=400)
+    with gr.Row(elem_id="image-row", equal_height=True) as image_row:  
+        with gr.Column(elem_id="input-image-container") as input_image_container:
+            input_image = gr.Image(label="Input", source="upload", type="numpy", tool="sketch", elem_id="input-image")
+        with gr.Column(elem_id="output-image-container") as output_image_container:
+            output_image = gr.Image(label="Output", elem_id="output_container")
+    with gr.Row(elem_id="additional-container") as additional_container: 
+        with gr.Accordion("Additional", elem_id="accordion-container", open=False) as accordion_container:
+            negative_prompt = gr.Textbox(label="Negative Prompt", placeholder="Write your negative prompt here...", elem_id="negative-prompt", show_label=True, lines=1)
     
     submit_button.click(fn=predict, inputs=[prompt, init_image], outputs=output_image)
 
