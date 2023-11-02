@@ -26,7 +26,7 @@ def read_content(file_path: str) -> str:
 
 def predict(dict, prompt="", negative_prompt="", guidance_scale=7.5, steps=20, strength=1.0, scheduler="EulerDiscreteScheduler"):
     if device != "cuda":
-        raise gr.Warning(hardware_status)
+        raise gr.Error(hardware_status)
     else:
         if negative_prompt == "":
             negative_prompt = None
