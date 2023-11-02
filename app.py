@@ -10,7 +10,7 @@ if device != "cpu":
     print(hardware_status)
     pipe = AutoPipelineForInpainting.from_pretrained("diffusers/stable-diffusion-xl-1.0-inpainting-0.1", torch_dtype=torch.float16, variant="fp16").to(device)
 else:
-    hardware_status = "This Space is running on CPU hardware.")
+    hardware_status = "This Space is running on CPU hardware."
     hadware_status_description = "CUDA is currently unavailable as this Space is running on CPU hardware. To enable GPU acceleration, you can upgrade your Space by clicking the 'Settings' button located in the top navigation bar of the Space."
     print(hardware_status)
     print(hadware_status_description)
