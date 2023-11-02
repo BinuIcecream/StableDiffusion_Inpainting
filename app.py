@@ -6,11 +6,14 @@ import diffusers
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 if device != "cpu":
-    print("Your Space is running on GPU hardware.")
+    hardware_status = "This Space is running on GPU hardware."
+    print(hardware_status)
     pipe = AutoPipelineForInpainting.from_pretrained("diffusers/stable-diffusion-xl-1.0-inpainting-0.1", torch_dtype=torch.float16, variant="fp16").to(device)
 else:
-    print("Your Space is running on CPU hardware.")
-    print("CUDA is currently unavailable as this Space is running on CPU hardware. To enable GPU acceleration, you can upgrade your Space by clicking the 'Settings' button located in the top navigation bar of the Space.")
+    hardware_status = "This Space is running on CPU hardware.")
+    hadware_status_description = "CUDA is currently unavailable as this Space is running on CPU hardware. To enable GPU acceleration, you can upgrade your Space by clicking the 'Settings' button located in the top navigation bar of the Space."
+    print(hardware_status)
+    print(hadware_status_description)
 
 
 def read_content(file_path: str) -> str:
@@ -23,7 +26,7 @@ def read_content(file_path: str) -> str:
 
 def predict(dict, prompt="", negative_prompt="", guidance_scale=7.5, steps=20, strength=1.0, scheduler="EulerDiscreteScheduler"):
     if device != "cuda":
-        print("CUDA is currently unavailable as this Space is running on CPU hardware. To enable GPU acceleration, you can upgrade your Space by clicking the 'Settings' button located in the top navigation bar of the Space.")
+        raise gr.Warning(hardware_status)
     else:
         if negative_prompt == "":
             negative_prompt = None
@@ -43,8 +46,7 @@ def predict(dict, prompt="", negative_prompt="", guidance_scale=7.5, steps=20, s
         
         output = pipe(prompt = prompt, negative_prompt=negative_prompt, image=init_image, mask_image=mask, guidance_scale=guidance_scale, num_inference_steps=int(steps), strength=strength)
     
-        print("Image Generated:")
-        print(output.images[0])
+        print("Image Generated.")
         
         return output.images[0]
 
