@@ -1,5 +1,5 @@
 ---
-title: Inpaint
+title: Inpainting
 emoji: 🎨
 colorFrom: gray
 colorTo: gray
